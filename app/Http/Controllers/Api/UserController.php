@@ -180,9 +180,12 @@ class UserController extends Controller
 
             if(Auth::attempt($request->only('email', 'password')))
             {
+                if(empty($token))
+                    $token = $user->createToken(env('APP_NAME'))->accessToken;
+
                 return response()->json([
                     'user' => new UserResource($user),
-                    'token' => $user->createToken('ecommerce')->accessToken
+                    'token' => $token
                 ]);
             }
         }

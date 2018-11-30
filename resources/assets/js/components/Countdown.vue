@@ -2,7 +2,7 @@
 	<div class="text-danger">
 		<font-awesome-icon :icon="{ prefix: 'far', iconName: 'clock'}" :size="style.sizeClock" style="vertical-align: middle;" />
 		<strong :style="{ fontSize: style.fontSize }" style="vertical-align: middle;">
-			<span v-if="duration"> Còn lại {{ duration.days() }} ngày {{ duration.hours() }}:{{ duration.minutes() }}:{{ duration.seconds() }} kết thúc</span>
+			<span v-if="duration">{{ duration.days() }} ngày {{ duration.hours() }}:{{ duration.minutes() }}:{{ duration.seconds() }} {{ size == 'sm' || size == 'xs' ? '' : ' kết thúc khuyến mãi'}}</span>
 			<span v-else>{{ content }}</span>
 		</strong>
 	</div>

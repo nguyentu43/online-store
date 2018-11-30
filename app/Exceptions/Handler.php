@@ -62,6 +62,6 @@ class Handler extends ExceptionHandler
 
     public function unauthenticated($request, AuthenticationException $exception)
     {
-        return response()->json(['status' => 'error', 'message' => 'Unauthenticated.'], 401);
+        return response()->json(['status' => 'error', 'message' => 'Lỗi đăng nhập tài khoản'], 401);
     }
 }

@@ -36,8 +36,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Passport::routes();
-
+        //Passport::routes();
         Gate::define('storage.store', 'App\Policies\StoragePolicy@store');
         Gate::define('storage.destroy', 'App\Policies\StoragePolicy@destroy');
     }
