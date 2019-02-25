@@ -14,11 +14,11 @@ export default {
 		$_storage_getImagePath(url){
 			if(url)
 				return '/storage/' + url;
-			return '/storage/images/' + IMAGE.NO_IMAGE;
+			return '/storage/images/app/' + IMAGE.NO_IMAGE;
 		},
 		$_storage_getImageFromApp(type)
 		{
-			return '/storage/images/' + IMAGE[type];
+			return '/storage/images/app/' + IMAGE[type];
 		}
 	}
 }
