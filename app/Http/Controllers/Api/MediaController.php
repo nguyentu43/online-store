@@ -19,21 +19,50 @@ class MediaController extends Controller
 
     public function store(Request $request, Product $product, ProductSku $sku)
     {
-    	if($sku->media_list()->create($request->all()))
-        	return response()->json([
-                'status' => 'ok'
-            ]);
+        if(Gate::allows('storage.store'))
+        {
+            if($request->hasFile('file') && $request->file->isValid())
+            {
+                $path = Storage::disk('public')->putFile('images', $request->file);
+
+                if($sku->media_list()->create([
+                    'url' => $path
+                ]))
+                    return response()->json([
+                        'status' => 'ok',
+                        'path' => $path
+                    ]);
+            }
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'File tải lên không hợp lệ'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Tài khoản chưa được cấp quyền'
+        ], 405);
     }
 
     public function destroy(Request $request, Product $product, ProductSku $sku, $id)
     {
-        $media = $sku->media_list->find($id);
-        Storage::disk('public')->delete($media->url);
-    	if($media->delete())
-    	{
-    		return response()->json([
-                'status' => 'ok'
-            ]);
-    	}
+        if(Gate::allows('storage.destroy'))
+        {
+            $media = $sku->media_list->find($id);
+            Storage::disk('public')->delete($media->url);
+        	if($media->delete())
+        	{
+        		return response()->json([
+                    'status' => 'ok'
+                ]);
+        	}
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Tài khoản chưa được cấp quyền'
+        ], 405);    
     }
 }

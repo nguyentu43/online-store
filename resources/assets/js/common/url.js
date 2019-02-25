@@ -1,4 +1,4 @@
-const urlRoot = 'http://homestead.com/';
+const urlRoot = 'http://homestead.test/';
 const api = urlRoot + 'api/';
 
 export default {

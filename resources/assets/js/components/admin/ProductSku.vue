@@ -168,8 +168,20 @@
 					</el-form-item>
 				</div>
 
-				<el-form-item label="Hình ảnh">
-					<file-upload :file-upload="formSku.media" @success="successUpload" @remove="removeUpload"/>
+				<el-form-item label="Hình ảnh" v-if="formSku.id">
+					<el-upload
+					  list-type="picture-card"
+					  :file-list="formSku.mediaFileList"
+					  :limit="5"
+					  :action="api.products.getSku(slug) + '/' + formSku.id + '/media'"
+					  :headers="headers"
+					  :on-success="successUpload"
+					  :on-remove="removeUpload"
+					  :on-error="errorUpload"
+					  ref="upload"
+					  >
+					  <i class="el-icon-plus"></i>
+					</el-upload>
 				</el-form-item>
 
 				<el-form-item
@@ -190,7 +202,6 @@
 <script>
 	import moment from 'moment';
 	import HtmlEditor from '../HtmlEditor.vue';
-	import FileUpload from '../FileUpload.vue';
 	import Countdown from '../Countdown.vue';
 
 	export default{
@@ -344,19 +355,35 @@
 				else
 					this.formSku.discount = { };
 			},
-			successUpload(res)
+			successUpload(res, file, fileList)
 			{
 				this.formSku.media.push({ url: res.path });
 			},
-			removeUpload(file)
+			removeUpload(file, fileList)
 			{
-				this._.remove(this.formSku.media, (item) => item.url == file.url );
+				let name = file.name;
+				let media = this._.find(this.formSku.media, { url: name });
+
+				if(media != -1 && media.id)
+				{
+					this.axios.delete(this.api.products.getSku(this.slug) + '/' + this.formSku.id + '/media/' + media.id)
+					.then(() => {
+					});
+				}
+			},
+			errorUpload(err, file, fileList)
+			{
+				this.$notify({
+					type: "error",
+					title: 'Lỗi',
+					message: 'Lỗi tải file lên'
+				})
 			}
 		},
 		mounted(){
 			this.getData();
 		},
-		components: { HtmlEditor, FileUpload, Countdown }
+		components: { HtmlEditor, Countdown }
 	}
 </script>
 
