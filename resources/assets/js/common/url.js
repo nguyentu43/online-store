@@ -1,4 +1,4 @@
-const urlRoot = 'https://nteshop.000webhostapp.com/';
+const urlRoot = 'https://murmuring-spire-33329.herokuapp.com/';
 const api = urlRoot + 'api/';
 
 export default {
