@@ -1,4 +1,4 @@
-const urlRoot = 'http://homestead.test/';
+const urlRoot = 'https://murmuring-spire-33329.herokuapp.com/';
 const api = urlRoot + 'api/';
 
 export default {
