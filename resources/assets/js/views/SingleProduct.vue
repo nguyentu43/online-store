@@ -26,7 +26,7 @@
 							    </slide>
 							</carousel>
 
-							<viewer @viewerInited="viewerInited" :images="getImages" style="display: none">
+							<viewer @inited="viewerInited" :images="getImages" style="display: none">
 								<img v-for="img in getImages" :key="img" :src="$_storage_getImagePath(img)" />
 							</viewer>
 						</div>
