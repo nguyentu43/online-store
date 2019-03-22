@@ -313,7 +313,7 @@ class UserController extends Controller
             ], 400);
         }
 
-        $role = Role::where('name', 'Customer')->first();
+        $role = Role::where('name', 'Khách hàng')->first();
         $data = [
             'name' => $data->getName(),
             'email' => $data->getEmail(),
