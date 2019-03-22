@@ -317,7 +317,8 @@ class UserController extends Controller
         $data = [
             'name' => $data->getName(),
             'email' => $data->getEmail(),
-            'role_id' => $role->id
+            'role_id' => $role->id,
+            'enable' => true
         ];
 
         $user = User::with('role')->where('email', $data['email'])->first();
@@ -325,6 +326,7 @@ class UserController extends Controller
         if(!$user)
         {
             $user = User::create($data);
+            $user->roles()->sync($data['role_id']);
             Mail::to($user)->queue(new WelcomeMail($user));
             $user->cart()->create([]);
         }

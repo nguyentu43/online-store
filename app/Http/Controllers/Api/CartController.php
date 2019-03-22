@@ -17,7 +17,7 @@ class CartController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:create,App\Order');
+        //$this->middleware('can:create,App\Order');
     }
 
     public function index(Request $request)
