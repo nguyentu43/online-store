@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('roles')->insert([
             [ 'name' => 'Quản trị', 'permission' => '[ "all.manage" ]'],
-            [ 'name' => 'Khách hàng', 'permission' => '["product.read", "comment.read", "rate.read", "comment.create", "rate.create", "comment.update.owner", "rate.update.owner", "comment.delete.owner", "rate.delete.owner", "order.create", "order.update"]']
+            [ 'name' => 'Khách hàng', 'permission' => '["product.read", "comment.read", "rate.read", "comment.create", "rate.create", "comment.update.owner", "rate.update.owner", "comment.delete.owner", "rate.delete.owner", "order.create", "order.update", "user.update.owner"]']
         ]);
 
         $user = factory(App\User::class)->create([
