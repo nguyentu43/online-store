@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductSku;
 use App\Media;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\{ Storage, Gate};
 
 class MediaController extends Controller
 {
