@@ -71,6 +71,22 @@ a{
                 top: 0px;
             }
         }
+
+         &.highlight-red h5{
+            background: #E53935;
+
+            &:after{
+                border-color: transparent transparent transparent #E53935;
+            }
+        }
+
+        &.highlight-green h5{
+            background: #67c23a;
+
+            &:after{
+                border-color: transparent transparent transparent #67c23a;
+            }
+        }
     }
 
     &.panel-body, .panel-body{

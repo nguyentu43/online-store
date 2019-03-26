@@ -70,6 +70,22 @@ a:visited {
   top: 0px;
 }
 
+.panel .panel-heading.highlight-red h5 {
+  background: #E53935;
+}
+
+.panel .panel-heading.highlight-red h5:after {
+  border-color: transparent transparent transparent #E53935;
+}
+
+.panel .panel-heading.highlight-green h5 {
+  background: #67c23a;
+}
+
+.panel .panel-heading.highlight-green h5:after {
+  border-color: transparent transparent transparent #67c23a;
+}
+
 .panel.panel-body,
 .panel .panel-body {
   padding: 10px;

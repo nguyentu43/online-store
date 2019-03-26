@@ -2,7 +2,7 @@
     <div>
         <campaign mode='grid'/>
         <div class="panel">
-            <div class="panel-heading highlight">
+            <div class="panel-heading highlight highlight-red">
                 <h5>Danh mục chính</h5>
             </div>
             <el-row>
@@ -16,20 +16,11 @@
         </div>
         <div v-for="item in categories" class="panel">
             <div class="panel-heading highlight">
+
                 <h5 class="text-click" @click="moveToCategory(item)">
                     {{ item.name }}
                 </h5>
 
-                <span v-if='item.children.length > 0' style="margin-left: 30px">
-                    <el-button 
-                    v-for="c in item.children" 
-                    size="small" 
-                    :key="c.id"
-                    @click="moveToCategory(c)"
-                    >
-                        {{ c.name }}
-                    </el-button>
-                </span>
             </div>
             <div class="panel-body">
                 <template v-if='item.children.length > 0'>

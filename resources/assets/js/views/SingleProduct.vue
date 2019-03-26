@@ -60,10 +60,10 @@
 								<li>Trọng lượng: {{ product.weight }}</li>
 							</ul>
 
-							<div :class="{ 'btn-buy-mobile': $mq == 'xs' }">
+							<div :class="{ 'panel-buy-mobile': $mq == 'xs' }">
 
 								<template v-if="product.skus.length > 1">
-									<div class="mt-1 mb-1">
+									<div class="mb-1">
 										<span>Chọn phân loại: </span>
 										<el-radio-group v-model="selected" size="small">
 											<el-radio-button v-for="op,index in product.skus" :key="op.name" :label="index">{{ op.name }}</el-radio-button>
@@ -80,7 +80,7 @@
 										</el-button>
 									</div>
 
-									<div class="hidden-lg-only hidden-md-only hidden-sm-only mb-1">
+									<div class="hidden-lg-only hidden-md-only hidden-sm-only">
 										<el-input-number size="small" :min="1" v-model="quantity" :max="skuSelected.quantity"></el-input-number>
 										<el-button type="primary" size="small" @click="addToCart">
 											<font-awesome-icon icon="cart-plus" />
@@ -88,7 +88,7 @@
 										</el-button>
 									</div>
 								</div>
-								<div v-else class="mt-1 mb-1">
+								<div v-else>
 									<el-button type="danger">
 										Đã hết hàng
 									</el-button>
@@ -393,15 +393,17 @@
 		line-height: 30px;
 	}
 
-	.btn-buy-mobile{
+	.panel-buy-mobile{
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		z-index: 2000;
 		background: white;
 		border: 1px solid #eee;
-		width: 100%;
 		text-align: center;
+		right: 0;
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 	
 	@media screen and (max-width: 768px){

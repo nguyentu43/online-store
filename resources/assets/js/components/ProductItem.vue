@@ -1,7 +1,10 @@
 <template>
 	<div class="product" ref="product">
-		<div class="img">
-      		<img :src="$_storage_getImagePath(skuSelected.media[0] ? skuSelected.media[0].url : null)" class="text-click" @click="$router.push({name: 'product', params: { slug: data.slug }})">
+		<div 
+		class="img text-click" 
+		@click="$router.push({name: 'product', params: { slug: data.slug }})"
+		:style="{backgroundImage: 'url(' + $_storage_getImagePath(skuSelected.media[0] ? skuSelected.media[0].url : null) + ')'}"
+		>
       	</div>
       	<div class="body">
         	<div class="title text-click" @click="$router.push({name: 'product', params: { slug: data.slug }})">{{ data.name }}</div>
@@ -61,9 +64,17 @@
 			    :width="150"
 			    trigger="click"
 			    >
-			    	<el-radio-group v-model="selected" size="small">
+			    	<el-select v-model="selected" placeholder="Chọn phân loại">
+					    <el-option
+					      v-for="op, index in data.skus" 
+					      :key="op.name" 
+					      :label="op.name"
+					      :value="index">
+					    </el-option>
+					  </el-select>
+			    	<!-- <el-radio-group v-model="selected" size="small">
 						<el-radio-button v-for="op, index in data.skus" :key="op.name" :label="index">{{ op.name }}</el-radio-button>
-					</el-radio-group>
+					</el-radio-group> -->
 					<div class="mt-1">
 						<el-button style="width: 100%" size="small" type="primary" @click='addItemToCart()'><font-awesome-icon icon="cart-plus" /></el-button>
 					</div>
@@ -143,13 +154,12 @@
 		border: 2px solid rgb(2, 136, 209);
 	}
 
-	.product img{
-		height: 120px;
-		width: auto;
-	}
-
 	.product .img{
+		height: 120px;
 		text-align: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center;
 	}
 
 	.product .footer{

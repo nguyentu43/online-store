@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="panel">
-			<div class="panel-heading highlight text-click">
+			<div class="panel-heading highlight text-click highlight-red">
 				<h5 @click="moveToCategory(category)">Tất cả</h5>
 			</div>
 			<div class="panel-body">

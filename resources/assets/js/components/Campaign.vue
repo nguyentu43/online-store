@@ -98,7 +98,7 @@
   .slide-banner{
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
   }
 
   .grid-banner{
@@ -113,7 +113,7 @@
   }
 
   .gap-slide .slide-banner{
-    margin-left: 5px
+    /*margin-left: 5px*/
   }
 
   .banner .VueCarousel-pagination{

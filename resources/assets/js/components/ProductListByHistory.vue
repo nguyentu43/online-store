@@ -1,6 +1,6 @@
 <template>
 	<div class="panel">
-		<div class="panel-heading highlight">
+		<div class="panel-heading highlight highlight-green">
 			<h5>Sản phẩm đã xem</h5>
 		</div>
 		<div class="panel-body">

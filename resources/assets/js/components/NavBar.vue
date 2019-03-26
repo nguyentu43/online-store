@@ -319,6 +319,10 @@
     #header{
         background-color: #0288D1;
         padding: 0 20px;
+        color: white !important;
+    }
+
+    .router-link-active{
         color: white;
     }
 
