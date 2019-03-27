@@ -30,6 +30,6 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->subject(env('APP_NAME').' - Khôi phục mật khẩu')->markdown('emails.reset_password')->with('token', $this->token);
+        return $this->subject(env('APP_NAME').' - Khôi phục mật khẩu')->markdown('emails.reset_password')->from(env('MAIL_FROM_ADDRESS'))->with('token', $this->token);
     }
 }

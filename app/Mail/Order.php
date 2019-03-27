@@ -29,6 +29,6 @@ class Order extends Mailable
      */
     public function build()
     {
-        return $this->subject(env('APP_NAME').' - Thông tin đơn hàng #'.$this->order->order_code)->markdown('emails.order')->with('order', $this->order);
+        return $this->subject(env('APP_NAME').' - Thông tin đơn hàng #'.$this->order->order_code)->markdown('emails.order')->from(env('MAIL_FROM_ADDRESS'))->with('order', $this->order);
     }
 }
