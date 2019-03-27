@@ -3,9 +3,9 @@
         <div class="panel-heading">
             <h5>Đăng ký</h5>
         </div>
-		<el-col :sm="{ span: 8, offset: 8 }">
+		<el-col :sm="{ span: 10, offset: 6 }">
 			<div class="form panel">
-				<el-form ref="formRegister" :model="formRegister" :rules="rulesRegister" label-width="100px">
+				<el-form ref="formRegister" :model="formRegister" :rules="rulesRegister" label-width="140px">
 			        <el-form-item label="Họ và tên" prop="name">
 			            <el-input size="small" type="text" v-model="formRegister.name"></el-input>
 			        </el-form-item>
@@ -35,7 +35,7 @@
 			            <el-input size="small" type="password" v-model="formRegister.rpassword"></el-input>
 			        </el-form-item>
 			        <el-form-item>
-			            <el-button native-type="submit" :loading="loadRegister" @click.prevent="register" type="success" icon="el-icon-check">Đăng ký</el-button>
+			            <el-button native-type="submit" size="small" :loading="loadRegister" @click.prevent="register" type="success" icon="el-icon-check">Đăng ký</el-button>
 			        </el-form-item>
 			    </el-form>
 			</div>
@@ -118,13 +118,9 @@
                                 message: 'Đăng ký thành công',
                                 type: 'success',
                                 position: 'top-right'
-                            })
+                            });
 
-                            locatStorage.setItem('token', JSON.stringify(res.data.token))
-
-                            this.loadRegister = false;
-
-                            location.href="/";
+                            this.$router.push({name: 'login'});
 
                         }).catch(() => this.loadRegister = false)
                     }
