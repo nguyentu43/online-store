@@ -14,6 +14,8 @@
     <title>EShop</title>
     <link ref="shortcut icon" href="{{ asset('favicon.ico') }}" >
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" >
+    <script src="{{ asset('js/manifest.js') }}" defer></script>
+    <script src="{{ asset('js/vendor.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
