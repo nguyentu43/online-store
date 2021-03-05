@@ -12,3 +12,5 @@ php artisan db:seed
 php artisan storage:link
 ```
 
+![OV](https://github.com/nguyentu43/eshop/raw/master/screenshot.png)
+
