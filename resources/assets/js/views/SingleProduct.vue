@@ -4,8 +4,8 @@
 			<div class="panel panel-body">
 				<el-breadcrumb separator-class="el-icon-arrow-right">
 				  <template v-for="item in categories">
-				  	<el-breadcrumb-item v-if="item.children.length > 0" :to="{ name: 'categories', params: { slug: item.slug } }" >{{ item.name }}</el-breadcrumb-item>
-				  	<el-breadcrumb-item v-else :to="{ name: 'search', query: { category: item.id } }" >{{ item.name }}</el-breadcrumb-item>
+				  	<el-breadcrumb-item v-if="item.children.length > 0" :key="item.id" :to="{ name: 'categories', params: { slug: item.slug } }" >{{ item.name }}</el-breadcrumb-item>
+				  	<el-breadcrumb-item v-else :key="item.id" :to="{ name: 'search', query: { category: item.id } }" >{{ item.name }}</el-breadcrumb-item>
 				  </template>	
 				  
 				</el-breadcrumb>

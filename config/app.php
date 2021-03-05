@@ -159,10 +159,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
-        ScoutEngines\Elasticsearch\ElasticsearchProvider::class
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class
     ],
 
     /*

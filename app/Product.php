@@ -4,11 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\{Sluggable, SluggableScopeHelpers};
-use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use Sluggable, SluggableScopeHelpers, Searchable;
+    use Sluggable, SluggableScopeHelpers;
 
     protected $fillable = ['name', 'weight', 'description', 'brand_id', 
                             'product_type_id', 'category_id', 'enable'];
@@ -73,46 +72,21 @@ class Product extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
-    public function toSearchableArray()
+    public $searchable = ['name'];
+
+    protected function fullTextWildcards($term)
     {
-        $array = $this->load(['skus', 'type', 'brand', 'attributes', 'category'])->toArray();
+        $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
+        $term = str_replace($reservedSymbols, '', $term);
+        return $term;
+    }
 
-        unset($array['created_at']);
-        unset($array['updated_at']);
-        unset($array['enable']);
-        unset($array['description']);
-        unset($array['brand_id']);
-        unset($array['product_type_id']);
-        unset($array['category_id']);
-
-        $array['skus'] = array_map(function($item){
-
-            return [
-                'name' => $item['name'],
-                'price' => $item['price'],
-                'sku' => $item['sku']
-            ];
-
-        }, $array['skus']);
-
-        $array['attributes'] = array_map(function($item){
-
-            return $item['name'].' '.$item['pivot']['value'];
-
-        }, $array['attributes']);
-
-        $array['brand'] = [
-            'name' => $array['brand']['name']
-        ];
-
-        $array['type'] = [
-            'name' => $array['type']['name']
-        ];
-
-        $array['category'] = [
-            'name' => $array['category']['name']
-        ];
-
-        return $array;
+    public function scopeSearch($query, $term)
+    {
+        $columns = implode(',', $this->searchable);
+ 
+        $query->whereRaw("MATCH ({$columns}) AGAINST (?)", $this->fullTextWildcards($term));
+ 
+        return $query;
     }
 }

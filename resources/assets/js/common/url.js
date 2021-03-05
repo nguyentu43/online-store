@@ -1,4 +1,4 @@
-const urlRoot = 'http://homestead.test/';
+const urlRoot = 'http://localhost:8000/';
 const api = urlRoot + 'api/';
 
 export default {

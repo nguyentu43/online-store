@@ -49,7 +49,6 @@ class ProductAttributeValueController extends Controller
 
         if($product->attributes()->attach($request->product_attribute_id, ['value' => $request->value]))
         {
-            $product->searchable();
             return response()->json([
                 'status' => 'ok'
             ]);
@@ -101,7 +100,6 @@ class ProductAttributeValueController extends Controller
     {
         if($product->attributes()->detach($id))
         {
-            $product->searchable();
             return response()->json([
                 'status' => 'ok'
             ]);

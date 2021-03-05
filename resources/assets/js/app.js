@@ -27,7 +27,7 @@ import VueMoment from 'vue-moment'
 import VueCarousel from 'vue-carousel';
 import VueMq from 'vue-mq';
 import SocialSharing from 'vue-social-sharing';
-import VueLodash from 'vue-lodash';
+import lodash from 'lodash';
 import 'animate.css';
 import CaslMixin from './mixins/casl.js';
 import StorageMixin from './mixins/storage.js';
@@ -74,10 +74,10 @@ Vue.use(VueMq, {
   }
 });
 Vue.use(SocialSharing);
-Vue.use(VueLodash);
 
 Vue.prototype.api = api;
 Vue.prototype.axios = axios;
+Vue.prototype._ = lodash;
 
 library.add(faCartPlus, faPlusSquare, faShoppingCart
 	, faSearch, faUser, faSignInAlt, faSignOutAlt, faShoppingBag, faEye
@@ -153,7 +153,6 @@ router.beforeEach((to, from, next) => {
 
 const app = new Vue({
     el: '#app',
-    //i18n,
     router,
     store,
     render: h => h(App)

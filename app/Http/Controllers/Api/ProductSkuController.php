@@ -78,7 +78,6 @@ class ProductSkuController extends Controller
 
         if($sku)
         {
-            $product->searchable();
             return response()->json([
                 'status' => 'ok',
                 'id' => $sku->id
@@ -133,7 +132,6 @@ class ProductSkuController extends Controller
 
         if($sku->save())
         {
-            $product->searchable();
             return response()->json([
                 'status' => 'ok'
             ]);
@@ -152,7 +150,6 @@ class ProductSkuController extends Controller
         {
             if($product->skus->find($id)->delete())
             {
-                $product->searchable();
                 return response()->json([
                     'status' => 'ok'
                 ]);

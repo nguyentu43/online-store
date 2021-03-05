@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\{Schema, DB};
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 
 class CreateProductsTable extends Migration
 {
@@ -27,6 +28,8 @@ class CreateProductsTable extends Migration
             $table->string('slug', 150);
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE products ADD FULLTEXT fulltext_index (name)');
     }
 
     /**

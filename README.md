@@ -7,7 +7,7 @@ How to run
 ```bash
 php artisan key:generate
 php artisan migrate
-php artisan passport:install
+php artisan passport:install --force
 php artisan db:seed
 php artisan storage:link
 ```

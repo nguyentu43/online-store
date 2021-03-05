@@ -119,7 +119,7 @@
 									</div>
 									<div v-else><strong>Giảm giá: </strong>Không có</div>
 									<div v-if="sku.media.length > 0" v-viewer>
-										<img class="img-product" v-for="item in sku.media" :src="$_storage_getImagePath(item.url)" />
+										<img class="img-product" v-for="item in sku.media" :key="item.url" :src="$_storage_getImagePath(item.url)" />
 									</div>
 								</div>
 							</el-col>

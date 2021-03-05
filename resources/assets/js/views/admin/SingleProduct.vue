@@ -80,7 +80,7 @@
 								prop="weight"
 								label="Trọng lượng, kích thước"
 								>
-									<el-input size="small" v-model="formProduct.weight" ></el-input>
+									<el-input size="small" v-model="formProduct.weight" />
 								</el-form-item>
 
 								<el-form-item
@@ -166,7 +166,8 @@
 					name: '',
 					category_id: null,
 					brand_id: null,
-					product_type_id: null
+					product_type_id: null,
+					weight: ''
 				},
 				formProductRules: {
 					name: [{ required: true, message: 'Tên sản phẩm là bắt buộc', trigger: 'blur' }],
@@ -254,11 +255,13 @@
 
 								this.loading = false;
 
+								
+
 								this.$notify({
 									type: 'success',
 									message: 'Đã lưu thành công',
 									title: 'Thông báo'
-								})
+								});
 							})
 						}
 						else

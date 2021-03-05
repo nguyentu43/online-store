@@ -22,7 +22,7 @@
                 let message = err.message;
 
                 if(err.response)
-                    message = err.response.data.message;
+                    message = /*err.response.data.message*/ "Lỗi hệ thống. Hãy thử lại!";
                 
                 this.$notify({
                     title: 'Lỗi!',
