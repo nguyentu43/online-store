@@ -17,6 +17,15 @@
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
                     this.$router.push('login');
+
+                    this.$notify({
+                        title: 'Lỗi!',
+                        message: 'Token đã hết hạn',
+                        type: 'error',
+                        position: 'top-right'
+                    });
+
+                    return;
                 }
 
                 let message = err.message;
@@ -29,9 +38,7 @@
                     message,
                     type: 'error',
                     position: 'top-right'
-                })
-                
-                return Promise.reject(err)
+                });
             })
 
 

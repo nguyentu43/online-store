@@ -10,7 +10,7 @@
 		:data="data"
 		@cancel="data.is_edit=false;"
 		></comment-edit>
-		<el-col :sm='{ span: 19, offset: 5 }' :xs="{ span: 19, offset: 5 }">
+		<el-col :sm='{ span: 21, offset: 3}' :xs="{ span: 21, offset: 3 }">
 			<el-row class="sub-comment" 
 			v-for="item in data.children"
 			:key="item.id"

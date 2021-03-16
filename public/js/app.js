@@ -23650,6 +23650,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 _this.$router.push('login');
+
+                _this.$notify({
+                    title: 'Lỗi!',
+                    message: 'Token đã hết hạn',
+                    type: 'error',
+                    position: 'top-right'
+                });
+
+                return;
             }
 
             var message = err.message;
@@ -23662,8 +23671,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 type: 'error',
                 position: 'top-right'
             });
-
-            return Promise.reject(err);
         });
 
         var token = localStorage.getItem('token');
@@ -37600,8 +37607,8 @@ var render = function() {
             "el-col",
             {
               attrs: {
-                sm: { span: 19, offset: 5 },
-                xs: { span: 19, offset: 5 }
+                sm: { span: 21, offset: 3 },
+                xs: { span: 21, offset: 3 }
               }
             },
             _vm._l(_vm.data.children, function(item) {
@@ -41283,7 +41290,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             position: 'top-right'
                         });
 
-                        _this2.$router.push({ name: 'login' });
+                        localStorage.setItem('token', res.data.token);
+                        localStorage.setItem('user', JSON.stringify(res.data.user));
+                        _this2.$store.dispatch('setUser', res.data.user);
+                        _this2.$_casl_update();
+
+                        _this2.$router.push({ name: 'home' });
                     }).catch(function () {
                         return _this2.loadRegister = false;
                     });
@@ -57183,14 +57195,12 @@ var index = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
-__WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.headers.common['Accept'] = 'application/json';
+__WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.headers.common["Accept"] = "application/json";
 __WEBPACK_IMPORTED_MODULE_0_axios___default.a.interceptors.request.use(function (config) {
-
-  config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-
-  return config;
+    config.headers["Authorization"] = "Bearer " + localStorage.getItem("token");
+    return config;
 }, function (error) {
-  return Promise.reject(error);
+    return Promise.reject(error);
 });
 
 /***/ }),
@@ -57776,7 +57786,7 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -https://dan
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var urlRoot = 'http://localhost:8000/';
+var urlRoot = '/';
 var api = urlRoot + 'api/';
 
 /* harmony default export */ __webpack_exports__["a"] = ({

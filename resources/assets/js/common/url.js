@@ -1,4 +1,4 @@
-const urlRoot = 'http://localhost:8000/';
+const urlRoot = '/';
 const api = urlRoot + 'api/';
 
 export default {

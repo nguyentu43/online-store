@@ -156,7 +156,6 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-
         Validator::make($request->only('email', 'password'), 
         [
             'email' => 'required|email',
@@ -178,11 +177,8 @@ class UserController extends Controller
                 ], 401);
             }
 
-            if(Auth::attempt($request->only('email', 'password')))
+            if($token = auth()->attempt($request->only('email', 'password')))
             {
-                if(empty($token))
-                    $token = $user->createToken(env('APP_NAME'))->accessToken;
-
                 return response()->json([
                     'user' => new UserResource($user),
                     'token' => $token
@@ -236,7 +232,7 @@ class UserController extends Controller
 
         return response()->json([
             'user' => new UserResource($user),
-            'token' => $user->createToken(env('APP_NAME'))->accessToken
+            'token' => auth()->attempt($request->only('email', 'password'))
         ]);
     }
 

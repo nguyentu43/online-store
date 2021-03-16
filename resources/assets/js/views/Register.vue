@@ -112,7 +112,7 @@
                         this.loadRegister = true;
                         this.formRegister.date_of_birth = moment(this.formRegister.date_of_birth).format('YYYY-MM-DD')
                         this.axios.post(this.api.register.get(), this.formRegister).then((res) => {
-                            
+
                             this.$notify({
                                 title: 'Thông báo!',
                                 message: 'Đăng ký thành công',
@@ -120,7 +120,12 @@
                                 position: 'top-right'
                             });
 
-                            this.$router.push({name: 'login'});
+                            localStorage.setItem('token', res.data.token);
+                            localStorage.setItem('user', JSON.stringify(res.data.user));
+                            this.$store.dispatch('setUser', res.data.user);
+                            this.$_casl_update();
+
+                            this.$router.push({name: 'home'});
 
                         }).catch(() => this.loadRegister = false)
                     }
