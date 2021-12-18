@@ -46,8 +46,4 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_URL_CALLBACK')
     ],
-
-    'stripe' => [
-        'secret' => env('STRIPE_SECRET')
-    ]
 ];

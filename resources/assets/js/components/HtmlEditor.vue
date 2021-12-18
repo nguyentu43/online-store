@@ -36,7 +36,7 @@
 
 						var vm = this;
 						this.axios.post(this.api.upload.get(), formData, { 'Content-Type': 'multipart/form-data' }).then((res) => {
-							success(vm.$_storage_getImagePath(res.data.path));
+							success(res.data.url);
 						});
 				    }
 				}

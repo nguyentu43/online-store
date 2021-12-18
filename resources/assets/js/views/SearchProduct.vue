@@ -44,7 +44,7 @@
 						      :value="item.name"
 						      >
 						      	<span>{{ item.name }}</span>
-						      	<img class="img-brand" v-if="item.image" :src="$_storage_getImagePath(item.image)"/>
+						      	<img class="img-brand" v-if="item.image" :src="item.url"/>
 						    </el-option>
 						</el-select>
 					</div>

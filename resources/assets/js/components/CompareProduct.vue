@@ -33,7 +33,7 @@
 
 						<div @click="$router.push({ name: 'product', params: { slug: item.slug } }); show = false;">
 							<h5>{{ item.name }}</h5>
-							<img class="img-product" :src="$_storage_getImagePath(item.skus[0].media.length ? item.skus[0].media[0].url : null )" />
+							<img class="img-product" :src="item.skus[0].images.length === 0 ? $_storage_getImageFromApp('NO_IMAGE')() : item.skus[0].urls[0]" />
 						</div>
 
 						<div class="mt-1 mb-1">

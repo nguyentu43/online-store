@@ -69,13 +69,6 @@ class ProductSkuController extends Controller
             $sku->discount()->create($request->discount);
         }
 
-        if($request->media)
-        {
-            foreach ($request->media as $item) {
-                $sku->media_list()->create($item);
-            }
-        }
-
         if($sku)
         {
             return response()->json([
@@ -105,7 +98,6 @@ class ProductSkuController extends Controller
      */
     public function update(Request $request, Product $product, $id)
     {
-
         Validator::make($request->all(), [
             'quantity' => 'numeric|min:0',
             'price' => 'numeric|min:0'

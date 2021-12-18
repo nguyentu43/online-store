@@ -3,7 +3,7 @@
 		<div 
 		class="img text-click" 
 		@click="$router.push({name: 'product', params: { slug: data.slug }})"
-		:style="{backgroundImage: 'url(' + $_storage_getImagePath(skuSelected.media[0] ? skuSelected.media[0].url : null) + ')'}"
+		:style="{backgroundImage: 'url(' + (skuSelected.images.length > 0 ? skuSelected.urls[0] : $_storage_getImageFromApp('NO_IMAGE')()) + ')'}"
 		>
       	</div>
       	<div class="body">
@@ -72,9 +72,6 @@
 					      :value="index">
 					    </el-option>
 					  </el-select>
-			    	<!-- <el-radio-group v-model="selected" size="small">
-						<el-radio-button v-for="op, index in data.skus" :key="op.name" :label="index">{{ op.name }}</el-radio-button>
-					</el-radio-group> -->
 					<div class="mt-1">
 						<el-button style="width: 100%" size="small" type="primary" @click='addItemToCart()'><font-awesome-icon icon="cart-plus" /></el-button>
 					</div>

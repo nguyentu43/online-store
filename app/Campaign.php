@@ -9,7 +9,7 @@ class Campaign extends Model
 {
 	use Sluggable, SluggableScopeHelpers;
 
-    protected $fillable = ['name', 'description', 'banner', 'video', 'start_datetime', 'end_datetime', 'enable', 'categories', 'slug'];
+    protected $fillable = ['name', 'description', 'banner', 'start_datetime', 'end_datetime', 'enable', 'categories', 'slug'];
 
     protected $dates = ['start_datetime', 'end_datetime', 'created_at', 'updated_at'];
 

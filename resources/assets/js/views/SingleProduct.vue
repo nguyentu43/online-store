@@ -16,18 +16,18 @@
 					<el-col :sm="12" :xs="24">
 						<div class="text-center panel-body">
 							<carousel :per-page="1">
-								<template v-if="skuSelected.media.length > 0">
-							    	<slide v-for="(m, index) in skuSelected.media" :key="m.id">
-							      		<img @click="$viewer.view(index)" class="img-product" :src="$_storage_getImagePath(m.url)" />
+								<template v-if="skuSelected.urls.length > 0">
+							    	<slide v-for="(url, index) in skuSelected.urls" :key="index">
+							      		<img @click="$viewer.view(index)" class="img-product" :src="url" />
 							    	</slide>
 								</template>
 								<slide v-else>
-							      	<img :src="$_storage_getImagePath()" />
+							      	<img :src="$_storage_getImageFromApp('NO_IMAGE')()" />
 							    </slide>
 							</carousel>
 
 							<viewer @inited="viewerInited" :images="getImages" style="display: none">
-								<img v-for="img in getImages" :key="img" :src="$_storage_getImagePath(img)" />
+								<img v-for="img in getImages" :key="img" :src="img" />
 							</viewer>
 						</div>
 					</el-col>
@@ -261,18 +261,7 @@
 		computed: {
 			getImages()
 			{
-				let media = this.skuSelected.media;
-				let images = [];
-				if(media.length > 0)
-				{
-					images = this._.map(media, item => item.url);
-				}
-				else
-				{
-					images.push(this.$_storage_getImagePath());
-				}
-
-				return images;
+				return this.skuSelected.urls.length > 0 ? this.skuSelected.urls : [this.$_storage_getImageFromApp('NO_IMAGE')()];
 			},
 			skuSelected() {
 				return this.product.skus[this.selected];

@@ -21,6 +21,7 @@ class CreateProductSkusTable extends Migration
             $table->integer('quantity')->default(0);
             $table->bigInteger('price');
             $table->text('promotion')->nullable();
+            $table->text('images')->nullable();
             $table->timestamps();
         });
     }

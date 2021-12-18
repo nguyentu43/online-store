@@ -8,7 +8,7 @@
             <el-row>
                 <el-col :sm="6" :md="4" :xs="8" v-for="c in categories" :key="c.id">
                     <div class="category-box text-click" @click="moveToCategory(c)">
-                            <img :src="$_storage_getImagePath(c.image)" />
+                            <img :src="c.url === null ? $_storage_getImageFromApp('NO_IMAGE')() : c.url" />
                             <h5>{{ c.name }}</h5>
                     </div>
                 </el-col>

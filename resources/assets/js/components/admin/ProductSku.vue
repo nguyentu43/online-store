@@ -52,8 +52,8 @@
 			width="100px"
 			>
 				<template slot-scope="scope">
-					<div v-if="scope.row.media.length > 0" class="box-img" v-viewer>
-						<img v-for="img in scope.row.media" :src="$_storage_getImagePath(img.url)" />
+					<div v-if="scope.row.urls.length > 0" class="box-img" v-viewer>
+						<img v-for="url in scope.row.urls" :src="url" />
 					</div>
 					<span class="col" v-else>Không có</span>
 				</template>
@@ -169,19 +169,12 @@
 				</div>
 
 				<el-form-item label="Hình ảnh" v-if="formSku.id">
-					<el-upload
-					  list-type="picture-card"
-					  :file-list="formSku.mediaFileList"
-					  :limit="5"
-					  :action="api.products.getSku(slug) + '/' + formSku.id + '/media'"
-					  :headers="headers"
-					  :on-success="successUpload"
-					  :on-remove="removeUpload"
-					  :on-error="errorUpload"
-					  ref="upload"
-					  >
-					  <i class="el-icon-plus"></i>
-					</el-upload>
+					<file-upload 
+						:file-list="formSku.fileList"
+						@success="successUpload"
+						@remove="removeUpload"
+						:limit="10"
+						/>
 				</el-form-item>
 
 				<el-form-item
@@ -203,6 +196,7 @@
 	import moment from 'moment';
 	import HtmlEditor from '../HtmlEditor.vue';
 	import Countdown from '../Countdown.vue';
+	import FileUpload from '../FileUpload.vue';
 
 	export default{
 		props: ['slug'],
@@ -228,7 +222,8 @@
 				formSku: {
 					discount: {
 						range: ''
-					}
+					},
+					fileList: []
 				},
 				range: '',
 				skuRules: {
@@ -254,14 +249,6 @@
 					this.skuList = res.data;
 					this._.each(this.skuList, item => {
 
-						item.mediaFileList = this._.map(item.media, m => {
-							return {
-								name: m.url,
-								url: this.$_storage_getImagePath(m.url),
-								id: m.id
-							}
-						})
-
 						if(!item.discount){
 							return;
 						}
@@ -273,10 +260,15 @@
 					this.loading = false;
 				})
 			},
-			openDialog(data = { discount: {}, media: [] })
+			openDialog(data = { discount: {} })
 			{
 				this.formSku = Object.assign({}, data);
 				this.range = this.formSku.discount ? this.formSku.discount.range : [];
+
+				if(data.images){
+					this.formSku.fileList = data.images.map((item,index) => ({name: item, url: data.urls[index] }) );
+				}
+
 				this.showDialog = true;
 			},
 			saveSku(){
@@ -355,35 +347,22 @@
 				else
 					this.formSku.discount = { };
 			},
-			successUpload(res, file, fileList)
+			successUpload(res)
 			{
-				this.formSku.media.push({ url: res.path });
+				this.formSku.images.push(res.id);
 			},
-			removeUpload(file, fileList)
+			removeUpload(res)
 			{
-				let name = file.name;
-				let media = this._.find(this.formSku.media, { url: name });
-
-				if(media != -1 && media.id)
-				{
-					this.axios.delete(this.api.products.getSku(this.slug) + '/' + this.formSku.id + '/media/' + media.id)
-					.then(() => {
-					});
+				this.formSku.images = this.formSku.images.filter(item => item != res.id);
+				if(this.formSku.id){
+					this.saveSku();
 				}
-			},
-			errorUpload(err, file, fileList)
-			{
-				this.$notify({
-					type: "error",
-					title: 'Lỗi',
-					message: 'Lỗi tải file lên'
-				})
 			}
 		},
 		mounted(){
 			this.getData();
 		},
-		components: { HtmlEditor, Countdown }
+		components: { HtmlEditor, Countdown, FileUpload }
 	}
 </script>
 

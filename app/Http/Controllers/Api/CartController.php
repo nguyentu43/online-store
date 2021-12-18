@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\ProductSku;
+use App\Http\Resources\Cart as CartResource;
 
 class CartController extends Controller
 {
@@ -30,7 +31,9 @@ class CartController extends Controller
                 $cart->products()->detach($sku->id);
         }
 
-        return request()->user()->cart->load('products');
+        $cart = request()->user()->cart->load('products');
+
+        return new CartResource($cart);
     }
 
     public function destroy()

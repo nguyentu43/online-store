@@ -4,7 +4,7 @@
 			<div class="panel-heading highlight">
 				<h5> {{ campaign.name }} </h5>
 			</div>
-			<div class="banner" :style="{backgroundImage: 'url(' + $_storage_getImagePath(campaign.banner) + ')', height: $mq == 'xs' ? '150px' : '300px' }">
+			<div class="banner" :style="{backgroundImage: 'url(' + campaign.url + ')', height: $mq == 'xs' ? '150px' : '300px' }">
 			</div>
 			<div class="panel-body">
 				<div class="text-center">

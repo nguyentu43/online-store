@@ -11,14 +11,9 @@ const IMAGE = {
 
 export default {
 	methods: {
-		$_storage_getImagePath(url){
-			if(url)
-				return '/storage/' + url;
-			return '/storage/images/app/' + IMAGE.NO_IMAGE;
-		},
 		$_storage_getImageFromApp(type)
 		{
-			return '/storage/images/app/' + IMAGE[type];
+			return '/images/' + IMAGE[type];
 		}
 	}
 }

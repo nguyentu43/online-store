@@ -23,7 +23,7 @@
 				</el-rate>
 				<div v-if="rate.comment" class="mt-1">{{ rate.comment.content }}</div>
 				<div v-if="rate.images" v-viewer>
-					<img class="img-product" v-for="img in rate.images" :src="$_storage_getImagePath(img)" />
+					<img class="img-product" v-for="url in rate.urls" :src="url" />
 				</div>
 			</el-col>
 			<el-col>

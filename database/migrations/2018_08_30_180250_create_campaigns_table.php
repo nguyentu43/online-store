@@ -18,7 +18,6 @@ class CreateCampaignsTable extends Migration
             $table->text('name');
             $table->mediumText('description')->nullable();
             $table->text('banner')->nullable();
-            $table->text('video')->nullable();
             $table->dateTime('start_datetime')->nullable();
             $table->dateTime('end_datetime')->nullable();
             $table->json('categories')->nullable();

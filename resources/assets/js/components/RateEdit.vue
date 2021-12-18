@@ -20,7 +20,7 @@
 				></el-input>
 				<div class="mt-1 mb-1">Hình ảnh sản phẩm: </div>
 				<file-upload :limit="5" @success="successUpload" @remove="removeUpload" :file-list="fileList"/>
-				<el-button class="mt-1" size="small" icon="el-icon-check" type="success" @click="addRate">
+				<el-button class="mt-1" size="small" icon="el-icon-check" type="success" @click="saveRate">
 					Gửi đánh giá
 				</el-button>
 				<el-button v-if="data" size="small" @click="$emit('cancel')">
@@ -65,14 +65,14 @@
 					this.rate.images = [];
 				else
 				{
-					this.rate.images.forEach(item => {
-						this.fileList.push({name: item, url: this.$_storage_getImagePath(item) } );
+					this.rate.images.forEach((item,index) => {
+						this.fileList.push({name: item, url: this.rate.urls[index] } );
 					});
 				}
 			}
 		},
 		methods: {
-			addRate()
+			saveRate()
 			{
 				if(!this.user)
 				{
@@ -126,11 +126,14 @@
 			},
 			successUpload(res)
 			{
-				this.rate.images.push(res.path);
+				this.rate.images.push(res.id);
 			},
 			removeUpload(file)
 			{
 				this._.remove(this.rate.images, item => item == file.name);
+				if(this.rate.id){
+					this.saveRate();
+				}
 			}
 		},
 		components: { FileUpload }

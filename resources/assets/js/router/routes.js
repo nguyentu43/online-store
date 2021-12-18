@@ -19,7 +19,7 @@ import Register from '../views/Register.vue'
 import Campaign from '../views/Campaign.vue'
 
 import Admin from '../views/admin/Admin.vue'
-import Dashbroad from '../views/admin/Dashbroad.vue'
+import Dashboard from '../views/admin/Dashboard.vue'
 import CategoryManager from '../views/admin/CategoryManager.vue'
 import ProductTypeManager from '../views/admin/ProductTypeManager.vue'
 import BrandManager from '../views/admin/BrandManager.vue'
@@ -64,7 +64,7 @@ const routes = [
 	{ 
 		path: '/admin', component: Admin,
 		children: [
-			{ path: '/', component: Dashbroad, name:'dashbroad-admin', meta: { title: 'Dashbroad', permission: 'dashbroad.read' } },
+			{ path: '/', component: Dashboard, name:'dashboard-admin', meta: { title: 'Dashboard', permission: 'dashboard.read' } },
 			{ path: 'category-manager', component: CategoryManager, name:'category-admin', meta: { title: 'Quản lí danh mục', permission: 'category.read' } },
 			{ path: 'product-types', component: ProductTypeManager, name:'producttype-admin', meta: { title: 'Quản lí loại sản phẩm', permission: 'producttype.read'} },
 			{ path: 'brands', component: BrandManager, name:'brand-admin', meta: { title: 'Quản lí nhãn hàng', permission: 'brand.read' } },

@@ -64,7 +64,7 @@
 							Thời gian: {{ scope.row.start_datetime }} - {{ scope.row.end_datetime }}
 						</p>
 						<p>
-							<img v-viewer :src="$_storage_getImagePath(scope.row.banner)"/>
+							<img v-viewer :src="scope.row.url"/>
 						</p>
 
 						<el-table
@@ -93,7 +93,7 @@
 							>
 								<template slot-scope="scope">
 									<span class="col">
-										<img style="width: 50px" :src="$_storage_getImagePath(scope.row.skus[0].media.length ? scope.row.skus[0].media[0].url : null )" />
+										<img style="width:50px" :src="scope.row.skus[0].urls.length > 0 ? scope.row.skus[0].urls[0] : $_storage_getImageFromApp('NO_IMAGE')()" />
 									</span>
 								</template>
 							</el-table-column>
@@ -263,7 +263,7 @@
 					res.data.forEach(item => {
 
 						if(item.banner)
-							item.fileList = [ {name: item.banner, url: this.$_storage_getImagePath(item.banner) } ];
+							item.fileList = [ {name: item.banner, url: item.url } ];
 						else
 							item.fileList = [];
 					});
@@ -372,11 +372,14 @@
 			},
 			successUpload(res)
 			{
-				this.formCampaign.banner = res.path;
+				this.formCampaign.banner = res.id;
 			},
 			removeUpload()
 			{
 				this.formCampaign.banner = null;
+				if(this.formCampaign.id){
+					this.saveCampaign();
+				}
 			},
 			querySearchAsync(queryString, cb)
 			{

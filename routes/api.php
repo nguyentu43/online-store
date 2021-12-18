@@ -31,12 +31,6 @@ Route::middleware('auth:api')->group(function(){
 
 	Route::apiResource('/rate', 'RateController');
 
-	Route::prefix('/products/{product}/skus/{sku}')->group(function(){
-
-		Route::post('/media', 'MediaController@store');
-		Route::delete('/media/{id}', 'MediaController@destroy');
-	});
-
 	Route::apiResource('/roles', 'RoleController');
 
 	Route::prefix('/user')->group(function(){
@@ -66,6 +60,7 @@ Route::middleware('auth:api')->group(function(){
 	Route::delete('/producttypes/{producttype}/detach/{attr_id}', 'ProductTypeController@detach');
 	Route::apiResource('/attributes', 'ProductAttributeController');
 
+	Route::get('/image-url/{public_id}', 'StorageController@show');
 	Route::post('/upload', 'StorageController@store');
 	Route::post('/upload/remove', 'StorageController@destroy');
 

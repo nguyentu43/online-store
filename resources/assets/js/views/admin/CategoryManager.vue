@@ -23,7 +23,7 @@
 				<span class="custom-tree-node" slot-scope="{ node, data }">
 			        <span>
 			        	<el-checkbox v-model="data.enable" @change="updateCategory(data)"></el-checkbox>
-			        	<img v-if="data.image" class="img-category" :src="$_storage_getImagePath(data.image)" />
+			        	<img v-if="data.image" class="img-category" :src="data.url" />
 			        	<span :class="{ 'text-muted': !data.enable }">{{ data.name }}</span>
 			        </span>
 			        <span class="button">
@@ -153,12 +153,12 @@
 				this.form = Object.assign({}, data);
 
 				if(data.image)
-					this.fileList = [{name: data.image, url: this.$_storage_getImagePath(data.image) }];
+					this.fileList = [{name: data.image, url: data.url }];
 				else
 					this.fileList = [];
 
 				if(data.banner)
-					this.fileListBanner = [{name: data.banner, url: this.$_storage_getImagePath(data.banner) }];
+					this.fileListBanner = [{name: data.banner, url: data.url }];
 				else
 					this.fileListBanner = [];
 			},
@@ -214,11 +214,14 @@
 			},
 			successUpload(res, file, fileList)
 			{
-				this.form.image = res.path;
+				this.form.image = res.id;
 			},
 			removeUpload(file, fileList)
 			{
 				this.form.image = null;
+				if(this.form.id){
+					this.saveCategory();
+				}
 			}
 		},
 		created(){

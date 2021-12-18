@@ -10,14 +10,14 @@
             >
               <div class="slide-banner text-click"
               @click="$router.push({ name: 'campaign', params: { slug: item.slug } })"
-              :style="{backgroundImage: 'url(' + $_storage_getImagePath(item.banner) + ')'}"
+              :style="{backgroundImage: 'url(' + item.url + ')'}"
               ></div>
             </slide>
           </carousel>
         </div>
         <div :class="'grid' + (index + 2)" v-for="item, index in campaignGrid"
         class="text-click"
-        :style="{backgroundImage: 'url(' + $_storage_getImagePath(item.banner) + ')'}"
+        :style="{backgroundImage: 'url(' + item.url + ')'}"
         >
         </div>
       </div>
@@ -28,7 +28,7 @@
       >
         <div class="slide-banner text-click"
         @click="$router.push({ name: 'campaign', params: { slug: item.slug } })"
-        :style="{height: getHeight, backgroundImage: 'url(' + $_storage_getImagePath(item.banner) + ')'}"
+        :style="{height: getHeight, backgroundImage: 'url(' + item.url + ')'}"
         ></div>
       </slide>
     </carousel>

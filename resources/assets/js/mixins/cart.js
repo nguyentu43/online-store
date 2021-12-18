@@ -79,7 +79,6 @@ export default {
 			if(cart.length == 0) return Promise.resolve( {items: [], amount: 0} );
 
 			let skus = cart.map(p => p.product_sku_id);
-			let items = [];
 
 			skus = skus.join(',');
 
@@ -99,7 +98,7 @@ export default {
 
 							product:{ 
 								name: sku.product.name, 
-								img: sku.media.length > 0 ? sku.media[0].url : '',
+								url: sku.urls.length > 0 ? sku.urls[0] : '',
 								slug: sku.product.slug
 							},
 							price: sku.price,

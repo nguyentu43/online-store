@@ -118,8 +118,8 @@
 										<div><i class=el-icon-time></i> <strong>Kết thúc:</strong> {{sku.discount.end_datetime}}</div>
 									</div>
 									<div v-else><strong>Giảm giá: </strong>Không có</div>
-									<div v-if="sku.media.length > 0" v-viewer>
-										<img class="img-product" v-for="item in sku.media" :key="item.url" :src="$_storage_getImagePath(item.url)" />
+									<div v-if="sku.urls.length > 0" v-viewer>
+										<img class="img-product" v-for="url in sku.urls" :key="url" :src="url" />
 									</div>
 								</div>
 							</el-col>

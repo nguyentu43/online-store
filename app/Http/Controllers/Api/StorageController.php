@@ -4,23 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 
 class StorageController extends Controller
 {
-
     public function store(Request $request)
     {
         if(Gate::allows('storage.store'))
         {
             if($request->hasFile('file') && $request->file->isValid())
             {
-                $path = Storage::disk('public')->putFile('images', $request->file);
+                $result = $request->file->storeOnCloudinary('eshop');
 
                 return response()->json([
                     'status' => 'ok',
-                    'path' => $path
+                    'id' => $result->getPublicId(),
+                    'url' => $result->getSecurePath()
                 ]);
             }
             return response()->json([
@@ -39,7 +38,8 @@ class StorageController extends Controller
     {
         if(Gate::allows('storage.destroy'))
         {
-            if(Storage::disk('public')->delete($request->name))
+            $response = cloudinary()->destroy($request->name, ['folder' => 'eshop']);
+            if($response['result'] == 'ok')
             {
                 return response()->json([
                     'status' => 'ok'

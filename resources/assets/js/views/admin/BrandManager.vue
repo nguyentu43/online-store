@@ -31,7 +31,7 @@
 							<span class="col">
 								{{ scope.row.name }}
 							</span>
-							<img class="img-brand" :src="$_storage_getImagePath(scope.row.image)"/>
+							<img class="img-brand" :src="scope.row.url || $_storage_getImageFromApp('NO_IMAGE')()"/>
 						</template>
 					</el-table-column>
 
@@ -83,7 +83,7 @@
 						<html-editor v-model="formBrand.description"></html-editor>
 					</el-form-item>
 					<el-form-item label="Hình ảnh">
-						<file-upload :limit="1" :file-list="fileList" @success="successUpload()" @remove="removeUpload()"/>
+						<file-upload :limit="1" :file-list="fileList" @success="successUpload" @remove="removeUpload()"/>
 					</el-form-item>
 					<el-form-item>
 						<el-button size="small" type="success" icon="el-icon-check" native-type="submit" @click.prevent="saveBrand">Lưu</el-button>
@@ -122,7 +122,7 @@
 				this.showDialog = true;
 				this.formBrand = Object.assign({}, data);
 				if(data.image)
-					this.fileList = [{name: data.image, url: this.$_storage_getImagePath(data.image) }];
+					this.fileList = [{name: data.image, url: data.url}];
 				else
 					this.fileList = [];
 			},
@@ -210,11 +210,14 @@
 			},
 			successUpload(res)
 			{
-				this.formBrand.image = res.path;
+				this.formBrand.image = res.id;
 			},
 			removeUpload()
 			{
 				this.formBrand.image = null;
+				if(this.formBrand.id){
+					this.saveBrand();
+				}
 			}
 		},
 		created(){
@@ -226,7 +229,7 @@
 
 <style scoped>
 	.img-brand{
-		height: 50px; 
+		height: auto; 
 		width: 50px;
 		vertical-align: middle;
 	}

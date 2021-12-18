@@ -8,6 +8,7 @@
 	  :on-success="successUpload"
 	  :on-remove="removeUpload"
 	  :on-error="errorUpload"
+	  :before-remove="beforeRemoveUpload"
 	  ref="upload"
 	  >
 	  <i class="el-icon-plus"></i>
@@ -34,15 +35,18 @@
 			{
 				this.$emit('success', res);
 			},
+			beforeRemoveUpload(file, fileList)
+			{
+				if(fileList.length === 0) return true;
+				return confirm("Hình ảnh này sẽ bị xoá khỏi hệ thống. Bạn có muốn xoá?");
+			},
 			removeUpload(file, fileList)
 			{
 				let name = file.name;
-				if(this._.find(this.fileList, { name }) == -1)
-					name = 'images/' + name; 
 				this.axios.post(this.api.upload.get() + '/remove', { name })
 				.then(() => {
 					this.$emit('remove', { name });
-				})
+				});
 			},
 			errorUpload(err, file, fileList)
 			{

@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Comment;
+use Illuminate\Support\Facades\Storage;
 
 class Rate extends JsonResource
 {
@@ -24,6 +25,9 @@ class Rate extends JsonResource
             'order_id' => $this->order_id,
             'rate' => $this->rate,
             'images' => $this->images,
+            'urls' => count($this->images) > 0 ? [] : array_map(function($item){
+                return Storage::disk('cloudinary')->url($item);
+            }, $this->images),
             'comment' => new Comment($this->comments->first()),
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString()

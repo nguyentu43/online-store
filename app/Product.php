@@ -83,7 +83,7 @@ class Product extends Model
 
     public function scopeSearch($query, $term)
     {
-        $columns = implode(',', $this->searchable);
+        $columns = implode( $this->searchable, ',');
  
         $query->whereRaw("MATCH ({$columns}) AGAINST (?)", $this->fullTextWildcards($term));
  

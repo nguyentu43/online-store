@@ -51,6 +51,59 @@ class DatabaseSeeder extends Seeder
             [ 'name' => 'Đã huỷ']
         ]);
 
+        $category1 = App\Category::create([
+            'name' => 'Phone',
+            'order' => 1,
+            'enable' => 1,
+            'slug' => 'phone'
+        ]);
+        $category2 = App\Category::create([
+            'name' => 'Tablet',
+            'order' => 2,
+            'enable' => 1,
+            'slug' => 'tablet'
+        ]);
+
+        $brand1 = App\Brand::create([
+            'name' => 'Apple',
+            'slug' => 'apple'
+        ]);
+        $brand2 = App\Brand::create([
+            'name' => 'Samsung',
+            'slug' => 'samsung'
+        ]);
+
+        $ptype1 = App\ProductType::create([
+            'name' => 'Phone'
+        ]);
+        $ptype2 = App\ProductType::create([
+            'name' => 'Table'
+        ]);
+
+        $pattr1 = App\ProductAttribute::create([
+            'name' => 'RAM'
+        ]);
+        $pattr2 = App\ProductAttribute::create([
+            'name' => 'HDD'
+        ]);
+        $pattr3 = App\ProductAttribute::create([
+            'name' => 'OS'
+        ]);
+
+        $ptype1->attributes()->sync([$pattr1->id, $pattr2->id, $pattr3->id]);
+        $ptype2->attributes()->sync([$pattr1->id, $pattr2->id, $pattr3->id]);
+
+        factory(App\Product::class, 10)->create()->each(function($p){
+
+        	$p->brand()->associate(App\Brand::inRandomOrder()->first());
+        	$p->type()->associate(App\ProductType::inRandomOrder()->first());
+        	$p->category()->associate(App\Category::inRandomOrder()->first());
+        	$p->save();
+
+        	event(new App\Events\ProductEvent($p));
+
+        });
+
         //$this->call(UsersTableSeeder::class);
     }
 }

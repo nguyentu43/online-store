@@ -5,7 +5,7 @@
 		<el-row class="panel panel-body">
 			<el-col :sm="4" :xs="12" v-for="c in category.children" :key="c.id">
 				<div class="box text-click" @click="moveToCategory(c)">
-					<img :src="$_storage_getImagePath(c.image)" />
+					<img :src="c.url" />
 					<div>{{ c.name }}</div>
 				</div>
 			</el-col>

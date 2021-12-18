@@ -44,8 +44,6 @@ const ability = AbilityBuilder.define((can) => {
             return role.permission.join(', ');
         });
 
-        let rules = [];
-
         permission = permission.join(', ').split(', ');
 
         permission.forEach(p => {
@@ -151,7 +149,7 @@ router.beforeEach((to, from, next) => {
 	}
 });
 
-const app = new Vue({
+new Vue({
     el: '#app',
     router,
     store,

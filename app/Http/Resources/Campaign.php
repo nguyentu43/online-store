@@ -22,7 +22,7 @@ class Campaign extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'banner' => $this->banner,
-            'video' => $this->video,
+            'url' => empty($this->banner) ? null : cloudinary()->getImage($this->banner)->toUrl(),
             'categories' => $this->categories ? $this->categories : [],
             'start_datetime' => $this->start_datetime ? $this->start_datetime->toDateTimeString() : null,
             'end_datetime' => $this->end_datetime ? $this->end_datetime->toDateTimeString() : null,

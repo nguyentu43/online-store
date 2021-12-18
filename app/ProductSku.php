@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductSku extends Model
 {
-    protected $fillable = ['sku', 'quantity', 'price', 'name', 'promotion'];
+    protected $fillable = ['sku', 'quantity', 'price', 'name', 'promotion', 'images'];
 
     public function getPromotionAttribute()
     {
@@ -19,11 +19,6 @@ class ProductSku extends Model
     	return $this->belongsTo('App\Product');
     }
 
-    public function media_list()
-    {
-    	return $this->hasMany('App\Media');
-    }
-
     public function discount()
     {
     	return $this->hasOne('App\Discount');
@@ -32,5 +27,15 @@ class ProductSku extends Model
     public function rate_list()
     {
         return $this->hasMany('App\Rate');
+    }
+
+    public function getImagesAttribute()
+    {
+        return empty($this->attributes['images']) ? []: explode(';', $this->attributes['images']);
+    }
+
+    public function setImagesAttribute($arr)
+    {
+        $this->attributes['images'] = implode($arr, ';');
     }
 }

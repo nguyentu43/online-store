@@ -3,9 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Product as ProductResource;
 use App\Product;
-use Illuminate\Support\Facades\DB;
 
 class Category extends JsonResource
 {
@@ -16,7 +14,7 @@ class Category extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {
+    {   
         return [
             'id' => $this->id,
             'enable' => $this->enable,
@@ -25,6 +23,7 @@ class Category extends JsonResource
             'order' => $this->order,
             'parent_id' => $this->parent_id,
             'image' => $this->image,
+            'url' => empty($this->image) ? null : cloudinary()->getImage($this->image)->toUrl(),
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
             'children' => Category::collection($this->children)
