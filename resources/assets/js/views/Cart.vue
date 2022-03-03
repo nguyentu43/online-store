@@ -9,7 +9,7 @@
 					<el-row class="cart-item" v-for="item in items" :key="item.id">
 						<el-col :sm="5" :xs="24">
 							<div class="text-center text-click" @click="$router.push({ name: 'product', params: { slug: item.product.slug }})">
-								<img :src="item.product.url || $_storage_getImageFromApp('NO_IMAGE')() "/>
+								<img :src="item.product.url || $_storage_getImageFromApp('NO_IMAGE') "/>
 							</div>
 						</el-col>
 						<el-col :sm="7" :xs="24">

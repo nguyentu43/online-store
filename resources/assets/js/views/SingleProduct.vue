@@ -22,7 +22,7 @@
 							    	</slide>
 								</template>
 								<slide v-else>
-							      	<img :src="$_storage_getImageFromApp('NO_IMAGE')()" />
+							      	<img :src="$_storage_getImageFromApp('NO_IMAGE')" />
 							    </slide>
 							</carousel>
 
@@ -261,7 +261,7 @@
 		computed: {
 			getImages()
 			{
-				return this.skuSelected.urls.length > 0 ? this.skuSelected.urls : [this.$_storage_getImageFromApp('NO_IMAGE')()];
+				return this.skuSelected.urls.length > 0 ? this.skuSelected.urls : [this.$_storage_getImageFromApp('NO_IMAGE')];
 			},
 			skuSelected() {
 				return this.product.skus[this.selected];

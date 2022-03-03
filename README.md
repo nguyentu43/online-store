@@ -1,5 +1,7 @@
 # Eshop
 
+[Try it](https://quiet-badlands-40969.herokuapp.com/)
+
 How to run
 
 - Rename .env.example to .env and add config to this

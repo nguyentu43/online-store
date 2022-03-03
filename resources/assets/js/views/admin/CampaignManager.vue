@@ -93,7 +93,7 @@
 							>
 								<template slot-scope="scope">
 									<span class="col">
-										<img style="width:50px" :src="scope.row.skus[0].urls.length > 0 ? scope.row.skus[0].urls[0] : $_storage_getImageFromApp('NO_IMAGE')()" />
+										<img style="width:50px" :src="scope.row.skus[0].urls.length > 0 ? scope.row.skus[0].urls[0] : $_storage_getImageFromApp('NO_IMAGE')" />
 									</span>
 								</template>
 							</el-table-column>
