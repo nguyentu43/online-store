@@ -72,11 +72,6 @@ class ProductController extends Controller
             $products = $products->where('product_type_id', $request->get('type'));
         }
 
-        if($request->has('list'))
-        {
-            $products = $products->whereIn('products.id', explode(',', $request->list));
-        }
-
         if($request->has('random'))
         {
             $products = $products->inRandomOrder();

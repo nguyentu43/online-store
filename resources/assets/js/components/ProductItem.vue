@@ -3,7 +3,7 @@
 		<div 
 		class="img text-click" 
 		@click="$router.push({name: 'product', params: { slug: data.slug }})"
-		:style="{backgroundImage: 'url(' + (skuSelected.images.length > 0 ? skuSelected.urls[0] : $_storage_getImageFromApp('NO_IMAGE')()) + ')'}"
+		:style="{backgroundImage: 'url(' + (skuSelected.images.length > 0 ? skuSelected.urls[0] : $_storage_getImageFromApp('NO_IMAGE')) + ')'}"
 		>
       	</div>
       	<div class="body">

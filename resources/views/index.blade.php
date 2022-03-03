@@ -9,14 +9,14 @@
     <meta property="og:title" content="Eshop">
     <meta property="og:description" content="Eshop website bán trực tuyến, đa dạng sản phẩm">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ secure_asset('storage/images/eshop-icon.png') }}">
-    <meta property="og:url" content="{{ secure_url('') }}">
+    <meta property="og:image" content="{{ asset('storage/images/eshop-icon.png') }}">
+    <meta property="og:url" content="{{ url('') }}">
     <title>EShop</title>
-    <link ref="shortcut icon" href="{{ secure_asset('favicon.ico') }}" >
-    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}" >
-    <script src="{{ secure_asset('js/manifest.js') }}" defer></script>
-    <script src="{{ secure_asset('js/vendor.js') }}" defer></script>
-    <script src="{{ secure_asset('js/app.js') }}" defer></script>
+    <link ref="shortcut icon" href="{{ asset('favicon.ico') }}" >
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" >
+    <script src="{{ asset('js/manifest.js') }}" defer></script>
+    <script src="{{ asset('js/vendor.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
     <div id="app"></div>

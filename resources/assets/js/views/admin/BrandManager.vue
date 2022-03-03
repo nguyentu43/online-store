@@ -31,7 +31,7 @@
 							<span class="col">
 								{{ scope.row.name }}
 							</span>
-							<img class="img-brand" :src="scope.row.url || $_storage_getImageFromApp('NO_IMAGE')()"/>
+							<img class="img-brand" :src="scope.row.url || $_storage_getImageFromApp('NO_IMAGE')"/>
 						</template>
 					</el-table-column>
 
