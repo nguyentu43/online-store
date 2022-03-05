@@ -179,7 +179,7 @@
 				brandOptions: [],
 				productTypeOptions: [],
 				currentTab: 'overview',
-				loading: false
+				loading: false,
 			}
 		},
 		methods: {
@@ -200,32 +200,15 @@
 							return obj;
 
 						obj.children = self._.map( category.children, (item) => {
-
-							if(item.children.length == 0)
-							{
-								return {
-									value: item.id,
-									label: item.name
-								}
-							}
-							return {
-								value: item.id,
-								label: item.name,
-								children: build_children(item)
-							}
-							
+							return build_children(item);
 						})
 						return obj;
 					}
 
 					let options = [];
-
 					this._.each(res.data, (item) => {
-
 						options.push(build_children(item))
-
 					})
-
 					this.categoryOptions = options;
 				});
 
@@ -236,7 +219,6 @@
 			},
 			saveProduct()
 			{
-				this.loading = true;
 				this.$refs.formProduct.validate(valid=>{
 
 					if(valid)
@@ -247,21 +229,9 @@
 						{
 							this.axios.put(this.api.products.get() + '/' + data.slug, data)
 							.then((res)=>{
-								if(res.data.slug != data.slug)
-								{
-									this.formProduct.slug = res.data.slug;
-									this.$router.replace({ name: 'product-edit-admin', params: { slug: res.data.slug } })
-								}
-
-								this.loading = false;
-
 								
-
-								this.$notify({
-									type: 'success',
-									message: 'Đã lưu thành công',
-									title: 'Thông báo'
-								});
+									location.href = this.api.root + 'admin/product-edit/' + res.data.slug;
+								
 							})
 						}
 						else
@@ -314,8 +284,7 @@
 				this.formProduct.enable = data.enable;
 
 				let order = data.category.order ? data.category.order.split(',').map(item => parseInt(item)) : [];
-
-				this.formProduct.category_id = order.concat(data.category.id);
+				this.formProduct.category_id = order.length === 1 ? order : order.concat(data.category.id);
 				this.formProduct.brand_id = data.brand.id;
 				this.formProduct.product_type_id = data.product_type.id;
 				this.$refs.formProduct.clearValidate();

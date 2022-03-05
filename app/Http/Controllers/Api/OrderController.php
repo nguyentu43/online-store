@@ -499,8 +499,8 @@ class OrderController extends Controller
         if($by == 'year')
         {
             $sql = <<<SQL
-            select group_table.month, sum(group_table.amount) as 'sum', count(group_table.id) as 'count'
-            from (SELECT orders.* ,month(orders.created_at) as 'month', year(orders.created_at) as 'year'
+            select group_table.month, sum(group_table.amount) as "sum", count(group_table.id) as "count"
+            from (SELECT orders.* ,extract(month from orders.created_at) as "month", extract(year from orders.created_at) as "year"
                   FROM orders join orders_order_status on orders.id = orders_order_status.order_id
                   group BY orders.id
                   having max(orders_order_status.status_id) = 4) as group_table
@@ -516,8 +516,8 @@ SQL;
         else if($by == 'month')
         {
             $sql = <<<SQL
-            select group_table.day, sum(group_table.amount) as 'sum', count(group_table.id) as 'count'
-            from (SELECT orders.*, month(orders.created_at) as 'month', year(orders.created_at) as 'year', day(orders.created_at) as 'day'
+            select group_table.day, sum(group_table.amount) as "sum", count(group_table.id) as "count"
+            from (SELECT orders.*, extract(month from orders.created_at) as "month", extract( year from orders.created_at) as "year", extract(day from orders.created_at) as "day"
                   FROM orders join orders_order_status on orders.id = orders_order_status.order_id
                   group BY orders.id
                   having max(orders_order_status.status_id) = 4) as group_table
@@ -535,11 +535,11 @@ SQL;
             $sql = <<<SQL
             select table2.month, table2.status_id, sum(table2.count) as sum, name
             from
-                (select table1.status_id, count(table1.id) as count, month(table1.created_at) as 'month'
+                (select table1.status_id, count(table1.id) as count, extract(month from table1.created_at) as month
                 from (
                     SELECT orders.id, orders.created_at , max(orders_order_status.status_id) as status_id
                     FROM orders join orders_order_status on orders.id = orders_order_status.order_id
-                    where year(orders.created_at) = ?
+                    where extract(year from orders.created_at) = ?
                     group BY orders.id
                     ) as table1
                 group by table1.status_id

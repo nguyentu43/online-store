@@ -27,7 +27,7 @@ class ProductSkuController extends Controller
     {
         if($request->has('list'))
         {
-            $product_skus = ProductSku::whereRaw("FIND_IN_SET(id, ?)", [ $request->get('list') ])->get();
+            $product_skus = ProductSku::whereRaw("id::text = any(string_to_array(?, ','))", [ $request->get('list') ])->get();
             $product_skus = $product_skus->filter(function($item){
 
                 return $item->product->enable == 1;
@@ -128,6 +128,11 @@ class ProductSkuController extends Controller
                 'status' => 'ok'
             ]);
         }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Bạn không thể lưu'
+        ], 404);
     }
 
     /**

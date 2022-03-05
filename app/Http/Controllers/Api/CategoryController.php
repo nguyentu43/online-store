@@ -44,7 +44,9 @@ class CategoryController extends Controller
             'name' => 'required'
         ])->validate();
 
-        $category = Category::create($request->all());
+        $data = $request->all();
+        $data['enable'] = false;
+        $category = Category::create($data);
         if($category)
             return new CategoryResource($category);
     }

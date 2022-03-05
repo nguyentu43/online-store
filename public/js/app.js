@@ -47279,29 +47279,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					if (category.children.length == 0) return obj;
 
 					obj.children = self._.map(category.children, function (item) {
-
-						if (item.children.length == 0) {
-							return {
-								value: item.id,
-								label: item.name
-							};
-						}
-						return {
-							value: item.id,
-							label: item.name,
-							children: build_children(item)
-						};
+						return build_children(item);
 					});
 					return obj;
 				}
 
 				var options = [];
-
 				_this._.each(res.data, function (item) {
-
 					options.push(build_children(item));
 				});
-
 				_this.categoryOptions = options;
 			});
 
@@ -47316,7 +47302,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		saveProduct: function saveProduct() {
 			var _this2 = this;
 
-			this.loading = true;
 			this.$refs.formProduct.validate(function (valid) {
 
 				if (valid) {
@@ -47324,18 +47309,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					data.category_id = _this2._.last(data.category_id);
 					if (data.id) {
 						_this2.axios.put(_this2.api.products.get() + '/' + data.slug, data).then(function (res) {
-							if (res.data.slug != data.slug) {
-								_this2.formProduct.slug = res.data.slug;
-								_this2.$router.replace({ name: 'product-edit-admin', params: { slug: res.data.slug } });
-							}
 
-							_this2.loading = false;
-
-							_this2.$notify({
-								type: 'success',
-								message: 'Đã lưu thành công',
-								title: 'Thông báo'
-							});
+							location.href = _this2.api.root + 'admin/product-edit/' + res.data.slug;
 						});
 					} else {
 						_this2.axios.post(_this2.api.products.get(), data).then(function (res) {
@@ -47384,8 +47359,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var order = data.category.order ? data.category.order.split(',').map(function (item) {
 				return parseInt(item);
 			}) : [];
-
-			_this3.formProduct.category_id = order.concat(data.category.id);
+			_this3.formProduct.category_id = order.length === 1 ? order : order.concat(data.category.id);
 			_this3.formProduct.brand_id = data.brand.id;
 			_this3.formProduct.product_type_id = data.product_type.id;
 			_this3.$refs.formProduct.clearValidate();

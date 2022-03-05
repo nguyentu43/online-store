@@ -10,7 +10,7 @@
     <meta property="og:description" content="Eshop website bán trực tuyến, đa dạng sản phẩm">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ secure_asset('storage/images/eshop-icon.png') }}">
-    <meta property="og:url" content="{{ url('') }}">
+    <meta property="og:url" content="{{ secure_url('') }}">
     <title>EShop</title>
     <link ref="shortcut icon" href="{{ secure_asset('favicon.ico') }}" >
     <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}" >

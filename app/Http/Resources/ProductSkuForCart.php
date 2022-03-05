@@ -19,7 +19,7 @@ class ProductSkuForCart extends JsonResource
             'sku' => $this->sku,
             'price' => $this->price,
             'images' => $this->images,
-            'urls' => count($this->images) > 0 ? [] : array_map(function($item){
+            'urls' => count($this->images) == 0 ? [] : array_map(function($item){
                 return cloudinary()->getImage($item)->toUrl();
             }, $this->images),
             'discount' => $this->discount,

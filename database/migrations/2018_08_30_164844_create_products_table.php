@@ -29,7 +29,8 @@ class CreateProductsTable extends Migration
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE products ADD FULLTEXT fulltext_index (name)');
+        DB::statement("ALTER TABLE products ADD COLUMN ts tsvector GENERATED ALWAYS AS (to_tsvector('english', name)) STORED");
+        DB::statement('CREATE INDEX ts_idx ON products USING GIN (ts)');
     }
 
     /**

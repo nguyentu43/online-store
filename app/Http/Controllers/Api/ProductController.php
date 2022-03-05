@@ -56,8 +56,8 @@ class ProductController extends Controller
             $products = $products->where('category_id', $request->get('category'));
             $products = $products
                         ->join('categories', 'products.category_id', '=', 'categories.id')
-                        ->orWhereIn("categories.order", explode(",",$request->get('category')));
-            $products = $products->distinct()->select(DB::raw('products.*'))->pluck('id');
+                        ->orWhereIn("categories.order", explode(",",$request->get('category')));            
+            $products = array_unique($products->selectRaw('"products"."id"')->pluck('id')->all());
             $products = DB::table('products')->whereIn('products.id', $products);
         }
 
@@ -89,7 +89,6 @@ class ProductController extends Controller
                 $products = $products->orderBy('product_skus.price', $mode);
             else if(strstr($sort, 'discount'))
             {
-                
                 $products = $products->leftJoin('discounts', 'product_skus.id', '=', 'product_sku_id')->orderBy('discounts.value', $mode);
             }
             else if(strstr($sort, 'newest'))
@@ -98,7 +97,7 @@ class ProductController extends Controller
             }
             else if(strstr($sort, 'bestsell'))
             {
-                $products = $products->leftJoin('order_detail', 'product_skus.id', '=', 'order_detail.sku_id');
+                $products = $products->leftJoin('order_detail', 'product_skus.id', '=', 'order_detail.sku_id')->groupBy('products.id')->orderByRaw('sum("order_detail"."quantity") desc');
             }
         }
 
@@ -131,8 +130,25 @@ class ProductController extends Controller
             $products = $products->where('enable', 1);
         }
 
-        $products = $products->distinct()->select(DB::raw('products.*'));
+        $selectRaw = '"products".*';
 
+        if($request->has('sort'))
+        {
+            $sort = $request->get('sort');
+            if(strstr($sort, 'price'))
+                $selectRaw .= ',"product_skus"."price"';
+            else if(strstr($sort, 'discount'))
+            {
+                $selectRaw .= ',"discounts"."value"';
+            }
+            else if(strstr($sort, 'bestsell'))
+            {
+                $selectRaw .= ',sum("order_detail"."quantity")';
+            }
+        }
+
+        $products = $products->orderBy('products.id', 'asc')->selectRaw($selectRaw)->distinct();
+    
         $all = $products->get()->count();
         $brands = $products->pluck('brand_id')->toArray();
         $brands = array_values(array_unique($brands));
@@ -256,7 +272,6 @@ class ProductController extends Controller
 
         if($product->category->order)
         {
-
             $categories = array_merge(Category::whereIn("id", explode(',', $product->category->order))->get()->load('children')->all(), $categories);
         }
 

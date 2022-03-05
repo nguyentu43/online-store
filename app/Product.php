@@ -72,8 +72,6 @@ class Product extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
-    public $searchable = ['name'];
-
     protected function fullTextWildcards($term)
     {
         $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
@@ -84,9 +82,7 @@ class Product extends Model
     public function scopeSearch($query, $term)
     {
         $columns = implode( ',', $this->searchable);
- 
-        $query->whereRaw("MATCH ({$columns}) AGAINST (?)", $this->fullTextWildcards($term));
- 
+        $query->whereRaw("ts @@ tquery('english', ?)", $this->fullTextWildcards($term));
         return $query;
     }
 }

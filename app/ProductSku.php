@@ -36,6 +36,6 @@ class ProductSku extends Model
 
     public function setImagesAttribute($arr)
     {
-        $this->attributes['images'] = implode($arr, ';');
+        $this->attributes['images'] = implode(';',$arr);
     }
 }

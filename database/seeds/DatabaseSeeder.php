@@ -53,13 +53,11 @@ class DatabaseSeeder extends Seeder
 
         $category1 = App\Category::create([
             'name' => 'Phone',
-            'order' => 1,
             'enable' => 1,
             'slug' => 'phone'
         ]);
         $category2 = App\Category::create([
             'name' => 'Tablet',
-            'order' => 2,
             'enable' => 1,
             'slug' => 'tablet'
         ]);
