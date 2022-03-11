@@ -542,9 +542,9 @@ SQL;
                     where extract(year from orders.created_at) = ?
                     group BY orders.id
                     ) as table1
-                group by table1.status_id
+                group by table1.status_id,  table1.created_at
                 ) as table2 join order_status on table2.status_id = order_status.id
-            group by table2.month, table2.status_id
+            group by table2.month, table2.status_id, name
             order by table2.status_id
 SQL;
             $data = DB::select($sql, [ $year ]);
@@ -556,10 +556,10 @@ SQL;
         }
         else if($by == 'bestsell')
         {
-            $where = $request->has('month') ? 'month(orders.created_at) = ? and year(orders.created_at) = ? ' : 'year(orders.created_at) = ?';
+            $where = $request->has('month') ? 'extract(month from orders.created_at) = ? and extract(year from orders.created_at) = ? ' : 'extract(year from orders.created_at) = ?';
             $params = $request->has('month') ? [ $month, $year ] : [ $year ];
             $sql = <<<SQL
-            select product_skus.id as 'sku_id', product_skus.name as 'sku_name', products.id as 'product_id', products.name as 'product_name', count(products.id) as count
+            select product_skus.id as sku_id, product_skus.name as sku_name, products.id as product_id, products.name as product_name, count(products.id) as count
             from
                 (select table1.id
                 from
@@ -570,7 +570,7 @@ SQL;
                     join order_status on table1.status_id = order_status.id and order_status.name = 'Đã giao'
                 )as table2
                 join order_detail on table2.id = order_detail.order_id join product_skus on product_skus.id = order_detail.sku_id join products on products.id = product_skus.product_id
-            group by product_skus.id
+            group by product_skus.id, products.id
             order by count(product_skus.id) desc
             limit 10
 SQL;
