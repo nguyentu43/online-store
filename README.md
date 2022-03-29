@@ -2,6 +2,9 @@
 
 [Try it](https://quiet-badlands-40969.herokuapp.com/)
 
+- Backend: Laravel 5
+- Frontend: VueJS
+
 How to run
 
 - Rename .env.example to .env and add config to this
